@@ -2,12 +2,16 @@ import * as React from 'react';
 import { View, Text, Touchableopacity, TextInput } from 'react-native';
 import { Header } from 'react-native-elements';
 import { Picker } from '@react-native-community/picker';
+import french from '../engfre'; 
+import I18n from "i18n-js";
 
 export default class Translatescreen extends React.Component {
   constructor() {
     super();
     this.state = {
       language: 'java',
+      pretrans: '',
+      posttrans: ''
     };
   }
 
@@ -18,7 +22,7 @@ export default class Translatescreen extends React.Component {
         <Header
           centerComponent={{ text: 'Translate' }}
         />
-        <View style = {{marginTop: 100, marginLeft: 20}}>
+        <View style = {{marginTop: 30, marginLeft: 20}}>
           <Picker
             selectedValue={this.state.language}
             style={{
@@ -52,6 +56,27 @@ export default class Translatescreen extends React.Component {
           }}
             placeholder={'Type here...'}
           />
+          <View style = {{marginTop: 40, marginLeft: 20}}>
+          <Picker
+            selectedValue={this.state.language}
+            style={{
+              height: 50,
+              width: 120,
+              borderWidth: 10,
+              borderColor: 'black',
+              
+            }}
+            itemStyle={{
+              color: 'blue'
+            }}
+            onValueChange={(itemValue, itemIndex) =>
+              this.setState({ language: itemValue })
+            }>
+            <Picker.Item label="French" value="java" />
+            <Picker.Item label="JavaScript" value="js" />
+          </Picker>
+        </View>
+        <View style={{ marginTop: 0 }}></View>
 
           <TextInput style={{
             marginTop: 10,
@@ -63,8 +88,13 @@ export default class Translatescreen extends React.Component {
             alignSelf: 'center',
             padding: 10
           }}
-            placeholder={'Translation...'}
+            placeholder={this.state.posttrans}
           />
+        </View>
+        <View>
+          <Text>
+            {I18n.t(this.state.pretrans, { locale: this.state.language })}
+          </Text>
         </View>
 
       </View>
